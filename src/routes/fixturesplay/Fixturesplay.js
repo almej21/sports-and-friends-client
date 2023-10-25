@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
-import * as ServerApi from "utils/serverApi";
-import * as dateHelpers from "utils/dateHelpers";
 import DateChooser from "components/DateChooser/DateChooser";
+import Fixture from "components/Fixture/Fixture";
 import LeaguesChooser from "components/LeaguesChooser/LeaguesChooser";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import * as dateHelpers from "utils/dateHelpers";
+import * as ServerApi from "utils/serverApi";
 import "./fixturesplay.scss";
 
 const Fixturesplay = (props) => {
@@ -12,7 +13,11 @@ const Fixturesplay = (props) => {
   const selectedLeaguesGlobalState = useSelector(
     (state) => state.fixtures.value.country_leagues
   );
+  var filteredFixturesDateSelected = [];
   var selectedDate = dateGlobalState.date;
+  if (!selectedDate) {
+    selectedDate = dateHelpers.getFormattedDate();
+  }
 
   useEffect(() => {
     ServerApi.allfixtures()
@@ -24,53 +29,29 @@ const Fixturesplay = (props) => {
       });
   }, []);
 
-  var filteredFixtures = fixtures.filter((fixture) => {
+  console.log("selected date:", selectedDate);
+  filteredFixturesDateSelected = fixtures.filter((fixture) => {
     return (
       fixture.date === selectedDate &&
       selectedLeaguesGlobalState.includes(fixture.league.country)
     );
   });
+  // console.log(fixtures);
+  // console.log(filteredFixturesDateSelected);
 
   return (
     <div className="fixturesplay-page">
-      <DateChooser></DateChooser>
+      <DateChooser selectedDate={selectedDate}></DateChooser>
       <LeaguesChooser></LeaguesChooser>
       <div className="fixtures-table">
         <div className="fixtures">
-          {filteredFixtures.map((fixture) => {
+          {filteredFixturesDateSelected.length === 0 && (
+            <h1 className="no-fixtures-title">{`no fixtures on ${selectedDate}`}</h1>
+          )}
+
+          {filteredFixturesDateSelected.map((fixture) => {
             const dateAndHour = dateHelpers.convertTimestamp(fixture.timestamp);
-            return (
-              <div key={fixture.api_fixture_id} className="fixture-border">
-                <div className="fixture">
-                  <div className="club">
-                    <img
-                      className="club-crest"
-                      src={fixture.clubs.home.logo}
-                      alt={fixture.clubs.home.name}
-                    ></img>
-                    <h3 className="club-name">{fixture.clubs.home.name}</h3>
-                  </div>
-                  <div className="fixture-info">
-                    {fixture.score.winner ? (
-                      <p>{`${fixture.score.home} - ${fixture.score.away}`}</p>
-                    ) : (
-                      <div className="date-hour">
-                        <p>{dateAndHour.formattedDate}</p>
-                        <p>{dateAndHour.formattedHour}</p>
-                      </div>
-                    )}
-                  </div>
-                  <div className="club">
-                    <img
-                      className="club-crest"
-                      src={fixture.clubs.away.logo}
-                      alt={fixture.clubs.away.name}
-                    ></img>
-                    <h3 className="club-name">{fixture.clubs.away.name}</h3>
-                  </div>
-                </div>
-              </div>
-            );
+            return <Fixture fixture={fixture} dateAndHour={dateAndHour} />;
           })}
         </div>
       </div>

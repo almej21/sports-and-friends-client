@@ -1,14 +1,14 @@
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { enableLeague, disableLeague } from "../../features/fixturesSlice";
-import "./leagueschooser.scss";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import England from "flags/england.png";
 import France from "flags/france.png";
 import Germany from "flags/germany.png";
 import Italy from "flags/italy.png";
 import Spain from "flags/spain.png";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { disableLeague, enableLeague } from "../../features/fixturesSlice";
+import "./leagueschooser.scss";
 
 const checkboxData = [
   {
@@ -87,6 +87,7 @@ export default function LeaguesChooser(props) {
             style={{ backgroundImage: checkbox.backgroundImage }}
             className="league-flag chosen "
             onClick={handleClick}
+            key={index}
           >
             <FontAwesomeIcon
               className="check-icon"

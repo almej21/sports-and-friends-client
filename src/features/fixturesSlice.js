@@ -1,8 +1,7 @@
-import { createSlice, current } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import * as dateHelpers from "utils/dateHelpers";
 
 var today = dateHelpers.getFormattedDate();
-console.log("today:", today);
 
 const initialStateValue = {
   date: today,

@@ -1,0 +1,48 @@
+.box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  border-width: 0.3rem;
+  border-radius: 0.5rem;
+  * {
+    color: black;
+  }
+  .tooltip {
+    color: #fff;
+  }
+  .search-btn {
+    background: #fff0;
+    padding: 1rem;
+    border: none;
+  }
+}
+
+.search-div {
+  display: flex;
+  margin-bottom: 0.5rem;
+}
+
+.my-chats {
+  border-width: 0.3rem;
+  border-radius: 0.5rem;
+  .my-chats-header {
+    color: #000;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 0;
+}
+
+.messages {
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+
+.chat-window {
+  width: 100%;
+  height: 94%;
+}

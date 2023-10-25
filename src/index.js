@@ -1,12 +1,13 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import "./index.scss";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
+import { ChakraProvider } from "@chakra-ui/react";
 import { configureStore } from "@reduxjs/toolkit";
-import { Provider } from "react-redux";
-import userInfoReducer from "features/userInfoSlice";
 import fixturesReducer from "features/fixturesSlice";
+import userInfoReducer from "features/userInfoSlice";
+import ReactDOM from "react-dom/client";
+import { Provider } from "react-redux";
+import App from "./App";
+import customTheme from "chakra-theme";
+import "./index.scss";
+import reportWebVitals from "./reportWebVitals";
 
 const store = configureStore({
   reducer: {
@@ -19,7 +20,9 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   // <React.StrictMode>
   <Provider store={store}>
-    <App />
+    <ChakraProvider theme={customTheme}>
+      <App />
+    </ChakraProvider>
   </Provider>
   // </React.StrictMode>
 );

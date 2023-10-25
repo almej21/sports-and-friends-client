@@ -1,0 +1,19 @@
+.chat-page {
+  margin-top: 5rem;
+  // color: #fff;
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+  height: 93dvh;
+  .chat-title-login {
+    text-align: center;
+    margin-top: 4.5rem;
+  }
+  .mychats-chatbox {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 93%;
+    padding-top: 1rem;
+  }
+}
